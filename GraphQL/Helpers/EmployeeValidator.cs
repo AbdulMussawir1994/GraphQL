@@ -12,3 +12,13 @@ public class EmployeeValidator : AbstractValidator<Employee>
         RuleFor(e => e.Department).NotEmpty();
     }
 }
+
+public class CreateEmployeeInputValidator : AbstractValidator<CreateEmployeeInput>
+{
+    public CreateEmployeeInputValidator()
+    {
+        RuleFor(x => x.FullName).NotEmpty();
+        RuleFor(x => x.Email).NotEmpty().EmailAddress();
+        RuleFor(x => x.Department).NotEmpty();
+    }
+}

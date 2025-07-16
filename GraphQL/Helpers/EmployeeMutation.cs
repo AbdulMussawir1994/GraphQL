@@ -1,19 +1,27 @@
 ﻿using FluentValidation;
 using GraphQL.Models;
 using GraphQL.Repository;
-using HotChocolate;
 
 namespace GraphQL.Helpers;
 
 
 public class EmployeeMutation
 {
-    public async Task<Employee> CreateEmployee(Employee input,
-        [Service] IEmployeeRepository repo,
-        [Service] IValidator<Employee> validator)
+    public async Task<Employee> CreateEmployee(
+           CreateEmployeeInput input,
+           [Service] IEmployeeRepository repo,
+           [Service] IValidator<CreateEmployeeInput> validator)
     {
         await validator.ValidateAndThrowAsync(input);
-        return await repo.CreateAsync(input);
+
+        var employee = new Employee
+        {
+            FullName = input.FullName,
+            Email = input.Email,
+            Department = input.Department
+        };
+
+        return await repo.CreateAsync(employee);
     }
 
     public async Task<Employee?> UpdateEmployee(int id, Employee input,

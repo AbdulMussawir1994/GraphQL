@@ -1,8 +1,5 @@
-﻿using FluentValidation;
-using GraphQL.DataDbContext;
+﻿using GraphQL.DataDbContext;
 using GraphQL.Helpers;
-using GraphQL.Models;
-using GraphQL.Repository;
 using HotChocolate.AspNetCore;
 using HotChocolate.AspNetCore.Playground;
 using Microsoft.EntityFrameworkCore;
@@ -17,8 +14,7 @@ builder.Services.AddDbContextPool<AppDbContext>(options =>
     .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
 );
 
-builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-builder.Services.AddScoped<IValidator<Employee>, EmployeeValidator>();
+builder.Services.AddApplicationServices();
 
 builder.Services
     .AddGraphQLServer()
